@@ -546,7 +546,7 @@ static int stringToInt( char * pValue )
  *********************************************************************/
 static void stringCopy( char * pCopy, char *pOriginal )
 {
-  uint i = 0;
+  uint8 i = 0;
 
   while ( pOriginal[i] != '=' && pOriginal[i] != ' ' )
   {

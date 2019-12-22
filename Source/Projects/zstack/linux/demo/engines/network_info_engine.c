@@ -41,6 +41,7 @@
  ******************************************************************************/
 #include <stdint.h>
 #include <stdlib.h>
+#include <sys/types.h>
 
 #include "data_structures.h"
 #include "socket_interface.h"

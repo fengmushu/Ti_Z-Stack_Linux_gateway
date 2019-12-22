@@ -42,7 +42,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/signal.h>
+#include <signal.h>
 #include <fcntl.h>
 #include <termios.h>
 #include <stdlib.h>
@@ -269,12 +269,9 @@ int NPI_I2C_SendAsynchData(npiMsgData_t *pMsg)
 #ifdef __DEBUG_TIME__I2C
 		//	debug_
 		gettimeofday(&curTime, NULL);
-		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendAsynchData has lock (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-				((int *)&npiPollLock)[1],
-				syscall(224));
+		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendAsynchData has lock (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 		debug_printf("[MUTEX] NPI_I2C_SendAsynchData has lock (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C
@@ -319,12 +316,9 @@ int NPI_I2C_SendAsynchData(npiMsgData_t *pMsg)
 #ifdef __DEBUG_TIME__I2C
 		//	debug_
 		gettimeofday(&curTime, NULL);
-		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendAsynchData released (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-				((int *)&npiPollLock)[1],
-				syscall(224));
+		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendAsynchData released (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 		debug_printf("[MUTEX] NPI_I2C_SendAsynchData released (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C
@@ -495,12 +489,9 @@ int NPI_I2C_SendSynchData(npiMsgData_t *pMsg)
 #ifdef __DEBUG_TIME__I2C
 		//	debug_
 		gettimeofday(&curTime, NULL);
-		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendSynchData has lock (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-				((int *)&npiPollLock)[1],
-				syscall(224));
+		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendSynchData has lock (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 		debug_printf("[MUTEX] NPI_I2C_SendSynchData has lock (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C
@@ -588,12 +579,9 @@ int NPI_I2C_SendSynchData(npiMsgData_t *pMsg)
 #ifdef __DEBUG_TIME__I2C
 		//	debug_
 		gettimeofday(&curTime, NULL);
-		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendSynchData released (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-				((int *)&npiPollLock)[1],
-				syscall(224));
+		debug_printf("[MUTEX %.5ld.%.6ld] NPI_I2C_SendSynchData released (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 		debug_printf("[MUTEX] NPI_I2C_SendSynchData released (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C
@@ -752,12 +740,9 @@ static void *npi_poll_entry(void *ptr)
 #ifdef __DEBUG_TIME__I2C
 			//	debug_
 			gettimeofday(&curTime, NULL);
-			debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData has lock (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-					((int *)&npiPollLock)[1],
-					syscall(224));
+			debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData has lock (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 			debug_printf("[MUTEX] npi_i2c_pollData has lock (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C
@@ -822,12 +807,9 @@ static void *npi_poll_entry(void *ptr)
 				if(0 == pthread_mutex_unlock(&npiPollLock))
 				{
 #ifdef __DEBUG_TIME__I2C
-					debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData released (%ld cnt: %d) [tid: %ld]\n",
-				curTime.tv_sec - initTime.tv_sec,
-				curTime.tv_usec,
-				npiPollLock.__align,
-							((int *)&npiPollLock)[1],
-							syscall(224));
+					debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData released (cnt: %d) [tid: %ld]\n",
+				curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+				((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 
 					debug_printf("[MUTEX] npi_i2c_pollData released (%d @ 0x%.16X)\n",
@@ -884,12 +866,9 @@ static void *npi_poll_entry(void *ptr)
 #ifdef __DEBUG_TIME__I2C
 							//	debug_
 							gettimeofday(&curTime, NULL);
-							debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData released (%ld cnt: %d) [tid: %ld]\n",
-									curTime.tv_sec - initTime.tv_sec,
-									curTime.tv_usec,
-									npiPollLock.__align,
-									((int *)&npiPollLock)[1],
-									syscall(224));
+							debug_printf("[MUTEX %.5ld.%.6ld] npi_i2c_pollData released (cnt: %d) [tid: %ld]\n",
+									curTime.tv_sec - initTime.tv_sec, curTime.tv_usec,
+									((int *)&npiPollLock)[1], syscall(224));
 #elif (defined __DEBUG_MUTEX__)
 							debug_printf("[MUTEX] npi_i2c_pollData released (%d @ 0x%.16X)\n", npiPollLock, &npiPollLock);
 #endif //__DEBUG_TIME__I2C

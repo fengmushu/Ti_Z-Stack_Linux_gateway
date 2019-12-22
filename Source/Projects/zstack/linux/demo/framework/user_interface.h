@@ -44,6 +44,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <sys/types.h>
 #include <gateway.pb-c.h>
 #include <otasrvr.pb-c.h>
 

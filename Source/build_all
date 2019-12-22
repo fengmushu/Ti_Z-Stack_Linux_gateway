@@ -2,12 +2,21 @@ pushd `dirname $0` > /dev/null
 SCRIPTPATH=`pwd`
 popd > /dev/null
 
-export TCLIB=/home/yystart/workspace/openwrt/openwrt_cc_mt7620/staging_dir/toolchain-mipsel_24kec+dsp_gcc-4.8-linaro_uClibc-0.9.33.2/lib
+export TCLIB=${TOOLCHAIN_DIR}/lib
 export GATEWAY=$SCRIPTPATH
 export NPI_SOURCE=$SCRIPTPATH/
 export PROTOINC=$SCRIPTPATH
-export PROTOLIB=$SCRIPTPATH/protobuf-c-mips/lib
+export PROTOLIB=${TARGET_ROOT}/usr/lib #$SCRIPTPATH/protobuf-c-mips/lib
 export PKGS_OUTPUT_DIR=$SCRIPTPATH/out
-cd scripts
+
+[ -f ${PROTOLIB}/libprotobuf-c.so ] || {
+    cd $PROTOLIB
+    ln -s libprotobuf-c.so.1.0.0 libprotobuf-c.so || {
+        echo "Can not found libprotobuf-c *"
+        exit -1
+    }
+}
+
+cd $GATEWAY/scripts
 export BUILDING_FROM_SOURCE_PACKAGE="TRUE"
 ./package_builder_bbb
